@@ -2,6 +2,16 @@
 
 Is a set of customazados widgets to help you in your layouts.
 
+## Getting Started
+
+Add the plugin:
+
+```yaml
+dependencies:
+  ...
+  customized: ^0.0.1
+```
+
 ## Features currently supported
 
 * Switch
