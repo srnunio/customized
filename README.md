@@ -44,12 +44,25 @@ dependencies:
     )
    ```
    
+# Basic Usage (CustomSwitch)
+
+```dart
+  CustomSwitch(
+      value: value,
+      activeColor: Colors.green, 
+      pointColor: Colors.white, 
+      onChanged: (value){
+        
+      },
+    )
+   ```
+   
 ## Preview
 
-<img src="/screenshots/image_ch0.png" width="300" height="240"> | 
-<img src="/screenshots/image_ch1.png" width="300" height="240"> | 
-<img src="/screenshots/image_ch2.png" width="300" height="240"> |
-<img src="/screenshots/image_ch3.png" width="300" height="240"> |
+<img src="/screenshots/image_ch0.png" width="600" height="240"> 
+<img src="/screenshots/image_ch1.png" width="600" height="240">  
+<img src="/screenshots/image_ch2.png" width="600" height="240"> 
+<img src="/screenshots/image_ch3.png" width="600" height="240"> 
 
 ## Features currently supported
 
