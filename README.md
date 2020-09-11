@@ -59,7 +59,7 @@ dependencies:
    
 ## Preview
 
-<img src="/screenshots/image_ch0.png" width="600" height="240"> 
+<img src="/screenshots/image_ch0.png" width="200" height="200"> 
 <img src="/screenshots/image_ch1.png" width="600" height="240">  
 <img src="/screenshots/image_ch2.png" width="600" height="240"> 
 <img src="/screenshots/image_ch3.png" width="600" height="240"> 
