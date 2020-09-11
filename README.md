@@ -2,8 +2,6 @@
 
 Is a set of customazados widgets to help you in your layouts.
 
-## Getting Started
-
 Add the plugin:
 
 ```yaml

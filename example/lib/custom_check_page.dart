@@ -9,22 +9,47 @@ class CustomCheckPage extends StatefulWidget {
 }
 
 class _CustomCheckPageState extends State<CustomCheckPage> {
-//  PRIMARY SETTINGS
-  bool _settings = false;
-  bool _title = true;
-  bool _delete = false;
-  bool _credit_card = false;
-
 //  CHECKED ITEMS
   bool _file_download = false;
   bool _attach_money = true;
   bool _trending_up = true;
 
+  CheckType type = CheckType.custom;
+
+  double _sizePoint = 18.0;
+
+  double _sizeCheck = 24.0;
+
+  double _border = 4.0;
+
+//  CHECK TYPE
+  static const types = <String>['custom', 'circle'];
+
+  final List<DropdownMenuItem<String>> _dropTypes = types
+      .map((e) => DropdownMenuItem<String>(
+            value: '${e}',
+            child: Text('${e}'),
+          ))
+      .toList();
+
+  //  POINTS
+  static const points = <String>['default', 'star', 'like'];
+
+  IconData _point;
+
+  String _pointString = 'default';
+
+  final List<DropdownMenuItem<String>> _points = points
+      .map((e) => DropdownMenuItem<String>(
+            value: '${e}',
+            child: Text('${e}'),
+          ))
+      .toList();
+
 //  COLORS
   Color _grey300 = Colors.grey[300];
   Color _green = Colors.green;
   Color _green50 = Colors.green[50];
-  Color _green100 = Colors.green[100];
 
   @override
   Widget build(BuildContext context) {
@@ -33,57 +58,6 @@ class _CustomCheckPageState extends State<CustomCheckPage> {
         margin: EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            SizedBox(
-              height: 16,
-            ),
-            _Title(title: 'Settings',size: 25),
-            SizedBox(
-              height: 16,
-            ),
-            _Title(title: 'PRIMARY SETTINGS'),
-            SizedBox(
-              height: 16,
-            ),
-            _ItemSwitch(
-                value: _settings,
-                icon: Icons.settings,
-                title: 'Setting option disabled',
-                description: 'Describle here what it is for',
-                onChanged: (value) {
-                  setState(() {
-                    _settings = value;
-                  });
-                }),
-            _ItemSwitch(
-                value: _title,
-                icon: Icons.title,
-                title: 'Automatically text alignment',
-                description: 'This is unuseful experimental feature',
-                onChanged: (value) {
-                  setState(() {
-                    _title = value;
-                  });
-                }),
-            _ItemSwitch(
-                value: _delete,
-                icon: Icons.delete,
-                title: 'Automatically delete items',
-                description: 'Get rid of sh*t and keep working hard',
-                onChanged: (value) {
-                  setState(() {
-                    _delete = value;
-                  });
-                }),
-            _ItemSwitch(
-                value: _credit_card,
-                icon: Icons.credit_card,
-                title: 'Keep my financial information',
-                description: 'No more privacy on the web',
-                onChanged: (value) {
-                  setState(() {
-                    _credit_card = value;
-                  });
-                }),
             SizedBox(
               height: 50,
             ),
@@ -117,14 +91,26 @@ class _CustomCheckPageState extends State<CustomCheckPage> {
                   setState(() {
                     _trending_up = value;
                   });
-                })
+                }),
+            Divider(),
+            _checkTypeBody(),
+            SizedBox(
+              height: 16,
+            ),
+            _checkPoint(),
+            SizedBox(
+              height: 50,
+            ),
+            _checkSizeBody(),
+            _pointSizeBody(),
+            _borderBody()
           ],
         ),
       ),
     );
   }
 
-  _Title({String title,double size = 12}) {
+  _Title({String title, double size = 12}) {
     return Text(
       title,
       style: TextStyle(fontSize: size, fontWeight: FontWeight.bold),
@@ -148,77 +134,153 @@ class _CustomCheckPageState extends State<CustomCheckPage> {
     );
   }
 
-  _ItemSwitch(
-      {IconData icon,
-      String description,
-      String title,
-      bool value = false,
-      ValueChanged<bool> onChanged}) {
-    return Container(
-      margin: EdgeInsets.only(top: 8.0),
-      padding: EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-          color: (value) ? _green50 : Colors.transparent,
-          borderRadius: BorderRadius.circular(6.0),
-          border: Border.all(
-              width: 1.0, color: (value) ? Colors.transparent : _grey300)),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: 8,
-          ),
-          Icon(
-            icon,
-            color: Colors.grey,
-          ),
-          SizedBox(
-            width: 8,
-          ),
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(fontSize: 16),
-                ),
-                Text(
-                  title,
-                  style: TextStyle(fontSize: 12),
-                )
-              ],
-            ),
-          ),
-          _customSwitch(value: value, onChanged: onChanged)
-        ],
-      ),
-    );
-  }
-
   _customCheck({bool value, ValueChanged<bool> onChanged}) {
     return CustomCheck(
       value: value,
       activeColor: _green,
-      type: CheckType.circle,
-      size: 24,
-      sizePoint: 18,
+      type: type,
+      size: _sizeCheck,
+      borderRadius: _border,
+      sizePoint: _sizePoint,
       onChanged: onChanged,
+      builder: (_point != null)
+          ? (ctx, size) {
+              return Icon(
+                _point,
+                color: Colors.white,
+                size: size,
+              );
+            }
+          : null,
     );
   }
 
-  _customSwitch({bool value, ValueChanged<bool> onChanged}) {
-    return CustomSwitch(
-      value: value,
-      activeColor: _green100,
-      width: 45,
-      pointColor: (value) ? _green : Colors.white,
-      switchColor: (value) ? _green50 : _grey300,
-      onChanged: onChanged,
+  _checkTypeBody() {
+    return ListTile(
+      title: _Title(title: 'CHECK TYPE'),
+      trailing: DropdownButton(
+          items: _dropTypes,
+          value: _typeString,
+          onChanged: (value) {
+            if (value == 'custom') {
+              setState(() {
+                type = CheckType.custom;
+              });
+            } else {
+              setState(() {
+                type = CheckType.circle;
+              });
+            }
+          }),
     );
   }
+
+  _borderBody() {
+    if (type == CheckType.circle) return empty;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Container(
+          margin: EdgeInsets.only(left: 16.0),
+          child: _Title(title: 'BORDER'),
+        ),
+        Slider(
+          value: _border,
+          divisions: 4,
+          onChanged: (value) {
+            setState(() {
+              _border = value;
+            });
+          },
+          activeColor: _green,
+          inactiveColor: _green50,
+          max: 8,
+          min: 0,
+        )
+      ],
+    );
+  }
+
+  _pointSizeBody() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Container(
+          margin: EdgeInsets.only(left: 16.0),
+          child: _Title(title: 'POINT SIZE'),
+        ),
+        Slider(
+          value: _sizePoint,
+          divisions: 4,
+          activeColor: _green,
+          inactiveColor: _green50,
+          onChanged: (value) {
+            setState(() {
+              _sizePoint = value;
+            });
+          },
+          max: 24,
+          min: 18,
+        )
+      ],
+    );
+  }
+
+  _checkSizeBody() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Container(
+          margin: EdgeInsets.only(left: 16.0),
+          child: _Title(title: 'CHECK SIZE'),
+        ),
+        Slider(
+          value: _sizeCheck,
+          divisions: 5,
+          onChanged: (value) {
+            setState(() {
+              _sizeCheck = value;
+            });
+          },
+          activeColor: _green,
+          inactiveColor: _green50,
+          max: 50,
+          min: 24,
+        )
+      ],
+    );
+  }
+
+  _checkPoint() {
+    return ListTile(
+      title: _Title(title: 'POINTS'),
+      trailing: DropdownButton(
+          items: _points,
+          value: _pointString,
+          onChanged: (value) {
+            _pointString = value;
+            if (value == 'default') {
+              setState(() {
+                _point = null;
+              });
+            } else if (value == 'star') {
+              setState(() {
+                _point = Icons.star;
+              });
+            } else {
+              setState(() {
+                _point = Icons.thumb_up;
+              });
+            }
+          }),
+    );
+  }
+
+  String get _typeString => '${type.toString().replaceAll('CheckType.', '')}';
 }

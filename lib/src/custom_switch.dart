@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 
 class CustomSwitch extends StatefulWidget {
   final bool value;
+
   final ValueChanged<bool> onChanged;
+
   final Color activeColor;
+
   final Color switchColor;
+
   final Color pointColor;
+
   final double width;
+
   final double height;
+
   final double sizePoint;
 
   CustomSwitch({
@@ -40,8 +47,8 @@ class _CustomSwitchState extends State<CustomSwitch>
     with SingleTickerProviderStateMixin {
   Animation _circle;
   AnimationController _controller;
-  double get _space => (widget.height < 30) ? 2.0 : 4.0;
 
+  double get _space => (widget.height < 30) ? 2.0 : 4.0;
 
   @override
   void initState() {
@@ -66,7 +73,7 @@ class _CustomSwitchState extends State<CustomSwitch>
           child: Container(
             width: widget.width,
             height: widget.height,
-            padding: EdgeInsets.only(left: _space ,right: _space),
+            padding: EdgeInsets.only(left: _space, right: _space),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.0),
                 color: _circle.value == Alignment.centerLeft
