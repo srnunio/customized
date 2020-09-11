@@ -12,6 +12,47 @@ dependencies:
   customized: ^0.0.1
 ```
 
+# Basic Usage (CustomCheck)
+
+```dart
+   CustomCheck(
+      value: true,
+      activeColor: Colors.green,
+      type: CheckType.circle,
+      size: 24,  
+      onChanged: (value){
+        
+      },
+    )
+   ```
+   * custom builder
+   
+   ```dart
+   CustomCheck(
+      value: value,
+      activeColor: Colors.green,
+      type: CheckType.circle,
+      size: 24,
+      builder: (ctx, size) {
+        return Icon(
+          Icons.star,
+          color: Colors.white,
+          size: size,
+        );
+      },
+      onChanged: (value) {
+        
+      },
+    )
+   ```
+   
+## Preview
+
+<img src="/screenshots/image_ch0.png" width="300" height="240"> | 
+<img src="/screenshots/image_ch1.png" width="300" height="240"> | 
+<img src="/screenshots/image_ch2.png" width="300" height="240"> |
+<img src="/screenshots/image_ch3.png" width="300" height="240"> |
+
 ## Features currently supported
 
 * Switch
