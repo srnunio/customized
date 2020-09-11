@@ -1,0 +1,103 @@
+import 'package:flutter/material.dart';
+
+class CustomSwitch extends StatefulWidget {
+  final bool value;
+  final ValueChanged<bool> onChanged;
+  final Color activeColor;
+  final Color switchColor;
+  final Color pointColor;
+  final double width;
+  final double height;
+  final double sizePoint;
+
+  CustomSwitch({
+    Key key,
+    this.value = false,
+    this.onChanged,
+    this.activeColor = Colors.black,
+    this.width = 50,
+    this.height = 30,
+    this.sizePoint = 20,
+    this.pointColor = Colors.white,
+    this.switchColor = Colors.grey,
+  }) : super(key: key) {
+    assert(value != null);
+    assert(width != null);
+    assert(height != null);
+    assert(sizePoint != null);
+    assert(activeColor != null);
+    assert(pointColor != null);
+    assert(switchColor != null);
+    assert(height >= 20);
+    assert(width >= 30 && width <= 45);
+  }
+
+  @override
+  _CustomSwitchState createState() => _CustomSwitchState();
+}
+
+class _CustomSwitchState extends State<CustomSwitch>
+    with SingleTickerProviderStateMixin {
+  Animation _circle;
+  AnimationController _controller;
+  double get _space => (widget.height < 30) ? 2.0 : 4.0;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 60));
+    _circle = AlignmentTween(
+            begin: widget.value ? Alignment.centerRight : Alignment.centerLeft,
+            end: widget.value ? Alignment.centerLeft : Alignment.centerRight)
+        .animate(CurvedAnimation(parent: _controller, curve: Curves.linear));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return GestureDetector(
+          onTap: () {
+            _onGesture();
+          },
+          child: Container(
+            width: widget.width,
+            height: widget.height,
+            padding: EdgeInsets.only(left: _space ,right: _space),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16.0),
+                color: _circle.value == Alignment.centerLeft
+                    ? widget.switchColor
+                    : widget.activeColor),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: 0.0, top: 4.0, right: 0.0, bottom: 4.0),
+              child: Align(
+                alignment: _circle.value,
+                child: Container(
+                  width: widget.sizePoint,
+                  height: widget.sizePoint,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: widget.pointColor),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  _onGesture() {
+    if (widget.onChanged == null) return;
+    if (_controller.isCompleted) {
+      _controller.reverse();
+    } else {
+      _controller.forward();
+    }
+    widget.value == false ? widget.onChanged(true) : widget.onChanged(false);
+  }
+}
