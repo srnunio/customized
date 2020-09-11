@@ -13,10 +13,16 @@ class CustomCheck extends StatelessWidget {
   final double borderRadius;
 
   final bool value;
+
   final ValueChanged<bool> onChanged;
+
   final Color activeColor;
+
   final Color checkColor;
+
   final Color colorPoint;
+
+  final Widget Function(BuildContext context, double sizePoint) builder;
 
   CustomCheck(
       {this.size = 20,
@@ -25,6 +31,7 @@ class CustomCheck extends StatelessWidget {
       @required this.value,
       this.type = CheckType.custom,
       this.onChanged,
+      this.builder,
       this.activeColor = Colors.black,
       this.checkColor = Colors.grey,
       this.colorPoint = Colors.white}) {
@@ -32,15 +39,13 @@ class CustomCheck extends StatelessWidget {
     assert(activeColor != null);
   }
 
-  _point() {
+  _builder(BuildContext context) {
     if (!value) return empty;
 
+    if (builder == null) return _defaultPoint;
+
     return Center(
-      child: Icon(
-        Icons.done,
-        color: colorPoint,
-        size: sizePoint,
-      ),
+      child: builder(context, this.sizePoint),
     );
   }
 
@@ -61,6 +66,14 @@ class CustomCheck extends StatelessWidget {
     }
   }
 
+  Widget get _defaultPoint => Center(
+        child: Icon(
+          Icons.done,
+          color: colorPoint,
+          size: sizePoint,
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -69,7 +82,7 @@ class CustomCheck extends StatelessWidget {
         decoration: _decoration(),
         width: size,
         height: size,
-        child: _point(),
+        child: _builder(context),
       ),
       onTap: () => (onChanged != null) ? onChanged(!value) : null,
     );
