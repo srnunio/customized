@@ -69,6 +69,11 @@ dependencies:
 <img src="/screenshots/image_sw0.png" height="300"> 
 <img src="/screenshots/image_sw1.png" height="300">   
 
+## Example
+
+<img src="/screenshots/screen1.png" width="270" height="440"> 
+<img src="/screenshots/video.mov" width="270" height="440">  
+
 ## Features currently supported
 
 * Switch
