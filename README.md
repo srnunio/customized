@@ -57,12 +57,17 @@ dependencies:
     )
    ```
    
-## Preview
+## Preview (CustomCheck)
 
 <img src="/screenshots/image_ch0.png" height="300"> 
 <img src="/screenshots/image_ch1.png" height="300">  
 <img src="/screenshots/image_ch2.png" height="300"> 
-<img src="/screenshots/image_ch3.png" height="240"> 
+<img src="/screenshots/image_ch3.png" height="300"> 
+
+## Preview (CustomSwitch)
+
+<img src="/screenshots/image_sw0.png" height="300"> 
+<img src="/screenshots/image_sw1.png" height="300">   
 
 ## Features currently supported
 
