@@ -71,8 +71,8 @@ dependencies:
 
 ## Example
 
-<img src="/screenshots/screen1.png" width="270" height="440">  |
-<img src="/screenshots/screen2.png" width="270" height="440">  
+<img src="/screenshots/screen1.png" width="280" height="500">  |
+<img src="/screenshots/screen2.png" width="280" height="500">  
 
 ## Features currently supported
 
