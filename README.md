@@ -74,6 +74,11 @@ dependencies:
 <img src="/screenshots/screen1.png" width="280" height="500">  |
 <img src="/screenshots/screen2.png" width="280" height="500">  
 
+<video width="320" height="240" controls>
+  <source src="/screenshots/video.mov" type="video/mp4">
+</video>
+
+
 ## Features currently supported
 
 * Switch
