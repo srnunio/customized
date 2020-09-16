@@ -4,12 +4,6 @@ Is a set of customazados widgets to help you in your layouts.
 
 Add the plugin:
 
-```yaml
-dependencies:
-  ...
-  customized: ^0.0.1
-```
-
 # Basic Usage (CustomCheck)
 
 ```dart
@@ -55,6 +49,26 @@ dependencies:
         
       },
     )
+   ```
+   
+# Basic Usage (Txt)
+
+```dart
+  Txt(
+    'Click here',
+    size: 28,
+    align: TextAlign.center,
+    rich: Rich(
+        key: 'here',
+        onRichTap: (value) {
+          print('onRichTap: ${value}'); 
+        },
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            decoration: TextDecoration.underline
+            )
+        ),
+  )
    ```
    
 ## Preview (CustomCheck)
