@@ -214,11 +214,11 @@ class _ExamplePageState extends State<ExamplePage> {
   _customSwitch({bool value, ValueChanged<bool> onChanged}) {
     return CustomSwitch(
       value: value,
-      activeColor: _green100,
-      width: 45,
-      pointColor: (value) ? _green : Colors.white,
-      switchColor: (value) ? _green50 : _grey300,
-      onChanged: onChanged,
+      activeColor: Colors.green,
+      pointColor: Colors.white,
+      onChanged: (value){
+
+      },
     );
   }
 }
