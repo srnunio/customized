@@ -1,6 +1,6 @@
 # customized
 
-Is a set of customazados widgets to help you in your layouts.
+A set of customized flutter widgets to help you save time building your layouts.
 
 Add the plugin:
 
@@ -88,7 +88,7 @@ Add the plugin:
 <img src="/screenshots/screen1.png" width="280" height="500">  |
 <img src="/screenshots/screen2.png" width="280" height="500">  
 
-## Features currently supported
+## Widgets currently available
 
 * Switch
 * Check 
