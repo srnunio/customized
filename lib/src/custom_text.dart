@@ -56,11 +56,7 @@ class Txt extends StatelessWidget {
     return value;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    if (rich == null) return _bodyDefaultText();
-    return _bodyRichText();
-  }
+
 
   List<TextSpan> _getSpans(String text) {
     List<TextSpan> spans = [];
@@ -71,12 +67,12 @@ class Txt extends StatelessWidget {
         final startIndex = text.indexOf(rich.key, spanBoundary);
         if (startIndex == -1) {
           spans.add(
-              TextSpan(style: _GetStyle, text: text.substring(spanBoundary)));
+              TextSpan(style: _getStyle, text: text.substring(spanBoundary)));
           return spans;
         }
         if (startIndex > spanBoundary) {
           spans.add(TextSpan(
-              style: _GetStyle,
+              style: _getStyle,
               text: text.substring(spanBoundary, startIndex)));
         }
         final endIndex = startIndex + rich.key.length;
@@ -102,7 +98,7 @@ class Txt extends StatelessWidget {
     var text = _Text();
     var spans = _getSpans(text);
     return Text.rich(
-      TextSpan(style: _GetStyle, children: spans),
+      TextSpan(style: _getStyle, children: spans),
       textAlign: align,
     );
   }
@@ -114,15 +110,21 @@ class Txt extends StatelessWidget {
       maxLines: maxLine == 0 ? null : maxLine,
       overflow: over,
       textAlign: align,
-      style: _GetStyle,
+      style: _getStyle,
     );
   }
 
-  TextStyle get _GetStyle =>
+  TextStyle get _getStyle =>
       style ??
       TextStyle(
           fontFamily: font,
           fontSize: size ?? 16,
           color: color,
           fontWeight: fontWeight);
+
+  @override
+  Widget build(BuildContext context) {
+    if (rich == null) return _bodyDefaultText();
+    return _bodyRichText();
+  }
 }

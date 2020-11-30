@@ -44,7 +44,7 @@ class CustomSwitch extends StatefulWidget {
 }
 
 class _CustomSwitchState extends State<CustomSwitch>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   Animation _circle;
   AnimationController _controller;
 
@@ -55,10 +55,16 @@ class _CustomSwitchState extends State<CustomSwitch>
     super.initState();
     _controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 60));
+
     _circle = AlignmentTween(
-            begin: widget.value ? Alignment.centerRight : Alignment.centerLeft,
-            end: widget.value ? Alignment.centerLeft : Alignment.centerRight)
+        begin: Alignment.centerLeft, end: Alignment.centerRight)
         .animate(CurvedAnimation(parent: _controller, curve: Curves.linear));
+
+    if (widget.value) {
+      _controller.forward();
+    } else {
+      _controller.reverse();
+    }
   }
 
   @override
