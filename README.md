@@ -82,15 +82,17 @@ Add the plugin:
    
 # Basic Usage (Button)
    * DefaultButton 
-     ```dart
+   
+   ```dart
    DefaultButton(
         value: 'Click',
         activeColor: Colors.green,
         textColor: Colors.white,
         onPressed: () {},
    ) 
-   
+   ``` 
    * CustomProgressButton 
+   
   ```dart
    CustomProgressButton(
         isLoading: isLoading,
