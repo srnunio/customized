@@ -22,13 +22,19 @@ class _CustomButtonExampleState extends State<CustomButtonExample> {
         padding: EdgeInsets.all(16.0),
         child: ListView(
           children: [
+            Txt(
+              'click_message',
+              textSize: 28,
+              textAlign: TextAlign.center,
+              builderText: (value) => 'Click here',
+            ),
             Txt('DefaultButton'),
             SizedBox(
               height: 16,
             ),
             DefaultButton(
               value: 'Click',
-              activeColor: _green,
+              activeColor: Colors.green,
               textColor: Colors.white,
               onPressed: () {},
             ),
