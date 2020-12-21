@@ -56,8 +56,8 @@ Add the plugin:
 ```dart
   Txt(
     'Click here',
-    size: 28,
-    align: TextAlign.center,
+    textSize: 28,
+    textAlign: TextAlign.center,
     rich: Rich(
         key: 'here',
         onRichTap: (value) {
@@ -69,6 +69,41 @@ Add the plugin:
             )
         ),
   )
+   ```
+   
+   ```dart
+   Txt(
+       'click_message',
+        textSize: 28,
+        textAlign: TextAlign.center,
+        builderText: (value) => 'Click here',
+   ),
+   ```
+   
+# Basic Usage (Button)
+   * DefaultButton 
+     ```dart
+   DefaultButton(
+        value: 'Click',
+        activeColor: Colors.green,
+        textColor: Colors.white,
+        onPressed: () {},
+   ) 
+   
+   * CustomProgressButton 
+  ```dart
+   CustomProgressButton(
+        isLoading: isLoading,
+        border: 16.0,
+        ignorePlatform: true,
+        onPressed: () async {
+          setState(() => isLoading = !isLoading);
+          await Future.delayed(Duration(seconds: 2));
+          setState(() => isLoading = !isLoading);
+        },
+        value: 'Click',
+        activeColor: _green,
+   )
    ```
    
 ## Preview (CustomCheck)
@@ -92,6 +127,8 @@ Add the plugin:
 
 * Switch
 * Check 
+* Text 
+* Button 
 
 If you have any features you want to see in this app, feel free to make a suggestion. 🎉
 
