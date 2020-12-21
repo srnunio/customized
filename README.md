@@ -104,7 +104,7 @@ Add the plugin:
           setState(() => isLoading = !isLoading);
         },
         value: 'Click',
-        activeColor: _green,
+        activeColor: Colors.green,
    )
    ```
    
