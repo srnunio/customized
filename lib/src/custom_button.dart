@@ -12,6 +12,7 @@ abstract class _CustomButton extends StatelessWidget {
   final double border;
   final double elevation;
   final TextStyle textStyle;
+  final TxtCase txtCase;
   final FontWeight fontWeight;
   final double textSize;
   final bool enableEffectClicked;
@@ -25,6 +26,7 @@ abstract class _CustomButton extends StatelessWidget {
     this.textColor,
     this.builderText,
     this.text,
+    this.txtCase,
     this.textStyle,
     this.textSize = 16.0,
     this.fontWeight,
@@ -59,6 +61,7 @@ class DefaultButton extends _CustomButton {
     double border,
     double elevation,
     TextStyle textStyle,
+    TxtCase txtCase = TxtCase.None,
     FontWeight fontWeight,
     Color textColor,
     Color activeColor,
@@ -74,6 +77,7 @@ class DefaultButton extends _CustomButton {
             textStyle: textStyle,
             elevation: elevation,
             builderText: builderText,
+            txtCase: txtCase,
             border: border ?? 8.0,
             fontWeight: fontWeight ?? FontWeight.normal,
             onPressed: onPressed);
@@ -85,6 +89,7 @@ class DefaultButton extends _CustomButton {
         text,
         builderText: builderText,
         textColor: textColor,
+        txtCase: txtCase,
         fontWeight: fontWeight,
         textStyle: textStyle,
         textSize: textSize,
@@ -103,6 +108,7 @@ class CustomProgressButton extends _CustomButton {
     Color textColor,
     Color activeColor,
     Color disabledColor,
+    TxtCase txtCase = TxtCase.None,
     String Function(String value) builderText,
     @required Function onPressed,
   })  : assert(value != null),
@@ -113,6 +119,7 @@ class CustomProgressButton extends _CustomButton {
             disabledColor: disabledColor ?? Colors.grey[200],
             textColor: textColor ?? Colors.white,
             textStyle: textStyle,
+            txtCase: txtCase,
             builderText: builderText,
             elevation: elevation ?? 0.0,
             border: border ?? 8.0,
@@ -130,6 +137,7 @@ class CustomProgressButton extends _CustomButton {
           context: context,
           child: Txt(
             text,
+            txtCase: txtCase,
             builderText: builderText,
             textColor: textColor,
             fontWeight: fontWeight,
