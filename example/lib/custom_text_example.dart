@@ -28,8 +28,8 @@ class _CustomTextExampleState extends State<CustomTextExample> {
             Container(
               child: Txt(
                 value,
-                size: 28,
-                align: TextAlign.center,
+                textSize: 28,
+                textAlign: TextAlign.center,
                 rich: Rich(
                     key: key,
                     onRichTap: (value) {

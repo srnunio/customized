@@ -35,8 +35,8 @@ class CustomSwitch extends StatefulWidget {
     assert(activeColor != null);
     assert(pointColor != null);
     assert(switchColor != null);
-    assert(height >= 20);
-    assert(width >= 30 && width <= 45);
+    assert(height >= 20 && height <= 30);
+    assert(width >= 30 && width <= 50);
   }
 
   @override
@@ -57,7 +57,7 @@ class _CustomSwitchState extends State<CustomSwitch>
         AnimationController(vsync: this, duration: Duration(milliseconds: 60));
 
     _circle = AlignmentTween(
-        begin: Alignment.centerLeft, end: Alignment.centerRight)
+            begin: Alignment.centerLeft, end: Alignment.centerRight)
         .animate(CurvedAnimation(parent: _controller, curve: Curves.linear));
 
     if (widget.value) {
@@ -111,6 +111,6 @@ class _CustomSwitchState extends State<CustomSwitch>
     } else {
       _controller.forward();
     }
-    widget.value == false ? widget.onChanged(true) : widget.onChanged(false);
+    widget.onChanged(!widget.value);
   }
 }

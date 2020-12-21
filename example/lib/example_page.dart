@@ -29,6 +29,11 @@ class _ExamplePageState extends State<ExamplePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        brightness: Brightness.light,
+        elevation: 0.0,
+      ),
       body: Container(
         margin: EdgeInsets.all(16.0),
         child: ListView(
@@ -36,7 +41,7 @@ class _ExamplePageState extends State<ExamplePage> {
             SizedBox(
               height: 16,
             ),
-            _Title(title: 'Settings',size: 25),
+            _Title(title: 'Settings', size: 25),
             SizedBox(
               height: 16,
             ),
@@ -117,14 +122,14 @@ class _ExamplePageState extends State<ExamplePage> {
                   setState(() {
                     _trending_up = value;
                   });
-                })
+                }),
           ],
         ),
       ),
     );
   }
 
-  _Title({String title,double size = 12}) {
+  _Title({String title, double size = 12}) {
     return Text(
       title,
       style: TextStyle(fontSize: size, fontWeight: FontWeight.bold),
@@ -216,9 +221,7 @@ class _ExamplePageState extends State<ExamplePage> {
       value: value,
       activeColor: Colors.green,
       pointColor: Colors.white,
-      onChanged: (value){
-
-      },
+      onChanged: (value) {},
     );
   }
 }
