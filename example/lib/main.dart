@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: CustomButtonExample(),
+      // home: CustomButtonExample(),
       // home: CustomTextExample(),
-//      home: CustomCheckPage(),
+     home: ExamplePage(),
       debugShowCheckedModeBanner: false,
     );
   }
