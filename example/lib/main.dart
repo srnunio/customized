@@ -19,7 +19,6 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       // home: CustomButtonExample(),
-      // home: CustomTextExample(),
      home: ExamplePage(),
       debugShowCheckedModeBanner: false,
     );
