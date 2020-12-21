@@ -104,9 +104,7 @@ class Txt extends StatelessWidget {
     String _text = value;
 
     if (this.builderText != null) {
-      print('builderText: ${_text}');
       _text = builderText(value);
-      print('builderText: ${_text}');
     }
 
     assert(_text != null);

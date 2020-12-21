@@ -15,6 +15,7 @@ abstract class _CustomButton extends StatelessWidget {
   final FontWeight fontWeight;
   final double textSize;
   final bool enableEffectClicked;
+  final String Function(String value) builderText;
 
   const _CustomButton({
     this.onPressed,
@@ -22,6 +23,7 @@ abstract class _CustomButton extends StatelessWidget {
     this.activeColor,
     this.disabledColor,
     this.textColor,
+    this.builderText,
     this.text,
     this.textStyle,
     this.textSize = 16.0,
@@ -61,6 +63,7 @@ class DefaultButton extends _CustomButton {
     Color textColor,
     Color activeColor,
     Color disabledColor,
+    String Function(String value) builderText,
     @required Function onPressed,
   })  : assert(value != null),
         super(
@@ -70,6 +73,7 @@ class DefaultButton extends _CustomButton {
             textColor: textColor ?? Colors.white,
             textStyle: textStyle,
             elevation: elevation,
+            builderText: builderText,
             border: border ?? 8.0,
             fontWeight: fontWeight ?? FontWeight.normal,
             onPressed: onPressed);
@@ -79,6 +83,7 @@ class DefaultButton extends _CustomButton {
       context: context,
       child: Txt(
         text,
+        builderText: builderText,
         textColor: textColor,
         fontWeight: fontWeight,
         textStyle: textStyle,
@@ -98,6 +103,7 @@ class CustomProgressButton extends _CustomButton {
     Color textColor,
     Color activeColor,
     Color disabledColor,
+    String Function(String value) builderText,
     @required Function onPressed,
   })  : assert(value != null),
         assert(isLoading != null),
@@ -107,6 +113,7 @@ class CustomProgressButton extends _CustomButton {
             disabledColor: disabledColor ?? Colors.grey[200],
             textColor: textColor ?? Colors.white,
             textStyle: textStyle,
+            builderText: builderText,
             elevation: elevation ?? 0.0,
             border: border ?? 8.0,
             fontWeight: fontWeight ?? FontWeight.normal,
@@ -123,6 +130,7 @@ class CustomProgressButton extends _CustomButton {
           context: context,
           child: Txt(
             text,
+            builderText: builderText,
             textColor: textColor,
             fontWeight: fontWeight,
             textStyle: textStyle,
