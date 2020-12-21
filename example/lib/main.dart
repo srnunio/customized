@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'custom_button_example.dart';
 import 'custom_check_page.dart';
 import 'custom_text_example.dart';
 import 'example_page.dart';
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: CustomTextExample(),
+      home: CustomButtonExample(),
+      // home: CustomTextExample(),
 //      home: CustomCheckPage(),
       debugShowCheckedModeBanner: false,
     );

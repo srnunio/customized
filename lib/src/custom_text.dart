@@ -15,77 +15,82 @@ class Rich {
 }
 
 class Txt extends StatelessWidget {
-  final Color color;
-  final double size;
+  final Color textColor;
+  final double textSize;
   final FontWeight fontWeight;
-  final String font;
+  final String fontFamily;
   final String value;
   final TxtCase txtCase;
   final int maxLine;
   final Rich rich;
-  final TextAlign align;
-  final TextOverflow over;
-  final TextStyle style;
-  final TextDecoration decoration;
+  final TextAlign textAlign;
+  final TextOverflow textOverflow;
+  final TextStyle textStyle;
+  final TextDecoration textDecoration;
+  final TextDirection textDirection;
+  final Locale locale;
+  final String Function(String value) builderText;
 
   Txt(this.value,
-      {this.color,
-      this.size,
+      {this.textColor,
+      Key key,
+      this.builderText,
+      this.textSize,
       this.fontWeight,
-      this.font,
+      this.fontFamily,
       this.txtCase = TxtCase.None,
       this.maxLine = 0,
-      this.align,
+      this.textAlign,
       this.rich,
-      this.decoration = TextDecoration.none,
-      this.style,
-      this.over}) {
-    assert(value != null);
-    assert(txtCase != null);
+      this.locale,
+      this.textDecoration = TextDecoration.none,
+      this.textDirection,
+      this.textStyle,
+      this.textOverflow})
+      : assert(value != null),
+        assert(txtCase != null),
+        super(key: key);
+
+  _caseText(String text) {
+    switch (txtCase) {
+      case TxtCase.LowerCase:
+        return text.toLowerCase();
+      case TxtCase.UpperCase:
+        return text.toUpperCase();
+      default:
+        return text;
+    }
   }
 
-  _Text() {
-    if (txtCase == TxtCase.LowerCase) {
-      return value.toLowerCase();
-    }
-
-    if (txtCase == TxtCase.UpperCase) {
-      return value.toUpperCase();
-    }
-
-    return value;
-  }
-
-
-
-  List<TextSpan> _getSpans(String text) {
+  List<TextSpan> _getSpans({String text, TextStyle style}) {
     List<TextSpan> spans = [];
     try {
       int spanBoundary = 0;
-
       do {
         final startIndex = text.indexOf(rich.key, spanBoundary);
+
         if (startIndex == -1) {
-          spans.add(
-              TextSpan(style: _getStyle, text: text.substring(spanBoundary)));
+          spans.add(TextSpan(style: style, text: text.substring(spanBoundary)));
           return spans;
         }
+
         if (startIndex > spanBoundary) {
           spans.add(TextSpan(
-              style: _getStyle,
-              text: text.substring(spanBoundary, startIndex)));
+              style: style, text: text.substring(spanBoundary, startIndex)));
         }
+
         final endIndex = startIndex + rich.key.length;
+
         final spanText = text.substring(startIndex, endIndex);
+
         spans.add(TextSpan(
             text: spanText,
             style: rich.style,
             recognizer: _onRichTap(spanText)));
+
         spanBoundary = endIndex;
       } while (spanBoundary < text.length);
-    } catch (error) {
-      print(error.toString());
-    }
+    } catch (error) {}
     return spans;
   }
 
@@ -94,37 +99,78 @@ class Txt extends StatelessWidget {
     return TapGestureRecognizer()..onTap = () => rich.onRichTap(value);
   }
 
-  _bodyRichText() {
-    var text = _Text();
-    var spans = _getSpans(text);
-    return Text.rich(
-      TextSpan(style: _getStyle, children: spans),
-      textAlign: align,
-    );
-  }
-
-  _bodyDefaultText() {
-    var text = _Text();
-    return Text(
-      '${text}',
-      maxLines: maxLine == 0 ? null : maxLine,
-      overflow: over,
-      textAlign: align,
-      style: _getStyle,
-    );
-  }
-
-  TextStyle get _getStyle =>
-      style ??
-      TextStyle(
-          fontFamily: font,
-          fontSize: size ?? 16,
-          color: color,
-          fontWeight: fontWeight);
-
   @override
   Widget build(BuildContext context) {
-    if (rich == null) return _bodyDefaultText();
-    return _bodyRichText();
+    String _text = value;
+
+    if (this.builderText != null) {
+      print('builderText: ${_text}');
+      _text = builderText(value);
+      print('builderText: ${_text}');
+    }
+
+    assert(_text != null);
+
+    _text = _caseText(_text);
+
+    final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
+
+    TextStyle _effectiveTextStyle = textStyle;
+
+    final TextAlign _textAlign =
+        textAlign ?? defaultTextStyle.textAlign ?? TextAlign.start;
+
+    final TextDirection _textDirection =
+        textDirection ?? Directionality.of(context);
+
+    final TextOverflow _textOverflow =
+        textOverflow ?? defaultTextStyle.overflow;
+
+    final _locale = locale ?? Localizations.localeOf(context, nullOk: true);
+
+    if (textStyle == null || textStyle.inherit) {
+      _effectiveTextStyle = defaultTextStyle.style.merge(textStyle);
+    }
+
+    if (fontFamily != null) {
+      _effectiveTextStyle =
+          _effectiveTextStyle.copyWith(fontFamily: fontFamily);
+    }
+
+    if (textColor != null) {
+      _effectiveTextStyle = _effectiveTextStyle.copyWith(color: textColor);
+    }
+
+    if (textSize != null) {
+      _effectiveTextStyle = _effectiveTextStyle.copyWith(fontSize: textSize);
+    }
+
+    if (textDecoration != null) {
+      _effectiveTextStyle =
+          _effectiveTextStyle.copyWith(decoration: textDecoration);
+    }
+
+    _effectiveTextStyle = _effectiveTextStyle.copyWith(
+      locale: _locale,
+      decoration: textDecoration,
+    );
+
+    if (rich == null)
+      return Text(
+        _text,
+        maxLines: maxLine == 0 ? null : maxLine,
+        locale: _locale,
+        overflow: _textOverflow,
+        textAlign: _textAlign,
+        textDirection: _textDirection,
+        style: _effectiveTextStyle,
+      );
+
+    var spans = _getSpans(text: _text, style: _effectiveTextStyle);
+
+    return Text.rich(
+      TextSpan(style: _effectiveTextStyle, children: spans),
+      textAlign: _textAlign,
+    );
   }
 }
