@@ -7,33 +7,32 @@ abstract class _CustomButton extends StatelessWidget {
   final Function onPressed;
   final Color activeColor;
   final Color disabledColor;
-  final Color textColor;
   final String text;
   final double border;
   final double elevation;
-  final TextStyle textStyle;
+  final double height;
   final TxtCase txtCase;
-  final FontWeight fontWeight;
   final double textSize;
+  final Color textColor;
   final bool enableEffectClicked;
-  final String Function(String value) builderText;
+  final TextStyle Function(TextStyle style) textStyle;
 
   const _CustomButton({
     this.onPressed,
     this.enableEffectClicked = true,
     this.activeColor,
     this.disabledColor,
-    this.textColor,
-    this.builderText,
     this.text,
     this.txtCase,
     this.textStyle,
-    this.textSize = 16.0,
-    this.fontWeight,
+    this.textColor,
+    this.textSize,
     this.border = 8.0,
+    this.height = 50.0,
     this.elevation = 8.0,
   })  : assert(disabledColor != null),
-        assert(text != null);
+        assert(text != null),
+        assert(height != null);
 
   body({@required Widget child, @required BuildContext context}) {
     var _activeColor = activeColor ?? Theme.of(context).accentColor;
@@ -46,8 +45,8 @@ abstract class _CustomButton extends StatelessWidget {
         disabledColor: disabledColor,
         elevation: elevation,
         color: _activeColor,
-        height: 50,
-        minWidth: double.infinity,
+        height: height,
+        minWidth: double.infinity / 2,
         child: child,
         onPressed: onPressed,
       ),
@@ -56,30 +55,31 @@ abstract class _CustomButton extends StatelessWidget {
 }
 
 class DefaultButton extends _CustomButton {
-  DefaultButton({
-    @required String value,
-    double border,
-    double elevation,
-    TextStyle textStyle,
-    TxtCase txtCase = TxtCase.None,
-    FontWeight fontWeight,
-    Color textColor,
-    Color activeColor,
-    Color disabledColor,
-    String Function(String value) builderText,
-    @required Function onPressed,
-  })  : assert(value != null),
+  DefaultButton(
+      {@required String value,
+      double border,
+      double elevation,
+      TextStyle Function(TextStyle style) textStyle,
+      TxtCase txtCase = TxtCase.None,
+      Color activeColor,
+      Color disabledColor,
+      double height = 50.0,
+      String Function(String value) builderText,
+      @required Function onPressed,
+      double textSize,
+      Color textColor})
+      : assert(value != null),
         super(
             text: value,
             activeColor: activeColor,
             disabledColor: disabledColor ?? Colors.grey[200],
-            textColor: textColor ?? Colors.white,
             textStyle: textStyle,
             elevation: elevation,
-            builderText: builderText,
+            height: height,
             txtCase: txtCase,
+            textSize: textSize,
+            textColor: textColor,
             border: border ?? 8.0,
-            fontWeight: fontWeight ?? FontWeight.normal,
             onPressed: onPressed);
 
   @override
@@ -87,43 +87,43 @@ class DefaultButton extends _CustomButton {
       context: context,
       child: Txt(
         text,
-        builderText: builderText,
+        textAlign: TextAlign.center,
+        textSize: textSize,
         textColor: textColor,
         txtCase: txtCase,
-        fontWeight: fontWeight,
         textStyle: textStyle,
-        textSize: textSize,
       ));
 }
 
 class CustomProgressButton extends _CustomButton {
-  CustomProgressButton({
-    this.isLoading = false,
-    this.ignorePlatform = false,
-    @required String value,
-    double border,
-    double elevation,
-    TextStyle textStyle,
-    FontWeight fontWeight,
-    Color textColor,
-    Color activeColor,
-    Color disabledColor,
-    TxtCase txtCase = TxtCase.None,
-    String Function(String value) builderText,
-    @required Function onPressed,
-  })  : assert(value != null),
+  CustomProgressButton(
+      {this.isLoading = false,
+      this.ignorePlatform = false,
+      @required String value,
+      double border,
+      double elevation,
+      TextStyle Function(TextStyle style) textStyle,
+      Color activeColor,
+      Color disabledColor,
+      double height = 50.0,
+      TxtCase txtCase = TxtCase.None,
+      String Function(String value) builderText,
+      @required Function onPressed,
+      double textSize,
+      Color textColor})
+      : assert(value != null),
         assert(isLoading != null),
         super(
             text: value,
             activeColor: activeColor,
             disabledColor: disabledColor ?? Colors.grey[200],
-            textColor: textColor ?? Colors.white,
             textStyle: textStyle,
             txtCase: txtCase,
-            builderText: builderText,
+            textSize: textSize,
+            textColor: textColor,
             elevation: elevation ?? 0.0,
+            height: height,
             border: border ?? 8.0,
-            fontWeight: fontWeight ?? FontWeight.normal,
             onPressed: (isLoading) ? null : onPressed);
 
   final bool isLoading;
@@ -138,11 +138,9 @@ class CustomProgressButton extends _CustomButton {
           child: Txt(
             text,
             txtCase: txtCase,
-            builderText: builderText,
-            textColor: textColor,
-            fontWeight: fontWeight,
             textStyle: textStyle,
             textSize: textSize,
+            textColor: textColor,
           ));
     else
       return body(

@@ -17,7 +17,6 @@ class Rich {
 class Txt extends StatelessWidget {
   final Color textColor;
   final double textSize;
-  final FontWeight fontWeight;
   final String fontFamily;
   final String value;
   final TxtCase txtCase;
@@ -25,21 +24,18 @@ class Txt extends StatelessWidget {
   final Rich rich;
   final TextAlign textAlign;
   final TextOverflow textOverflow;
-  final TextStyle textStyle;
   final TextDecoration textDecoration;
   final TextDirection textDirection;
   final Locale locale;
-  final String Function(String value) builderText;
+  final TextStyle Function(TextStyle value) textStyle;
 
   Txt(this.value,
-      {this.textColor,
-      Key key,
-      this.builderText,
-      this.textSize,
-      this.fontWeight,
+      {Key key,
       this.fontFamily,
       this.txtCase = TxtCase.None,
       this.maxLine = 0,
+      this.textSize,
+      this.textColor,
       this.textAlign,
       this.rich,
       this.locale,
@@ -52,6 +48,7 @@ class Txt extends StatelessWidget {
         super(key: key);
 
   _caseText(String text) {
+    if (text == null) return null;
     switch (txtCase) {
       case TxtCase.LowerCase:
         return text.toLowerCase();
@@ -101,19 +98,19 @@ class Txt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _text = value;
-
-    if (this.builderText != null) {
-      _text = builderText(value);
-    }
-
-    assert(_text != null);
-
-    _text = _caseText(_text);
+    final String _text = _caseText(value);
 
     final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
 
-    TextStyle _effectiveTextStyle = textStyle;
+    TextStyle _effectiveTextStyle = (textStyle != null)
+        ? textStyle(defaultTextStyle.style)
+        : defaultTextStyle.style;
+
+    assert(!(textStyle != null && textColor != null));
+    assert(!(textStyle != null && textSize != null));
+    assert(!(textStyle != null && fontFamily != null));
+    assert(!(textStyle != null && textDecoration != TextDecoration.none));
+    assert(_text != null);
 
     final TextAlign _textAlign =
         textAlign ?? defaultTextStyle.textAlign ?? TextAlign.start;
@@ -126,8 +123,9 @@ class Txt extends StatelessWidget {
 
     final _locale = locale ?? Localizations.localeOf(context, nullOk: true);
 
-    if (textStyle == null || textStyle.inherit) {
-      _effectiveTextStyle = defaultTextStyle.style.merge(textStyle);
+    if (textStyle != null) {
+      _effectiveTextStyle =
+          defaultTextStyle.style.merge(textStyle(defaultTextStyle.style));
     }
 
     if (fontFamily != null) {

@@ -28,8 +28,11 @@ class _CustomTextExampleState extends State<CustomTextExample> {
             Container(
               child: Txt(
                 value,
-                textSize: 28,
                 textAlign: TextAlign.center,
+                textStyle: (_) => TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    decoration: TextDecoration.underline),
                 rich: Rich(
                     key: key,
                     onRichTap: (value) {
@@ -38,6 +41,7 @@ class _CustomTextExampleState extends State<CustomTextExample> {
                     },
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Colors.black,
                         decoration: TextDecoration.underline)),
               ),
             ),
