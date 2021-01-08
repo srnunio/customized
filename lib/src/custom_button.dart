@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'custom_progress.dart';
 import 'custom_text.dart';
 
-abstract class _CustomButton extends StatelessWidget {
+abstract class CustomButton extends StatelessWidget {
   final Function onPressed;
   final Color activeColor;
   final Color disabledColor;
@@ -17,7 +17,7 @@ abstract class _CustomButton extends StatelessWidget {
   final bool enableEffectClicked;
   final TextStyle Function(TextStyle style) textStyle;
 
-  const _CustomButton({
+  const CustomButton({
     this.onPressed,
     this.enableEffectClicked = true,
     this.activeColor,
@@ -54,7 +54,7 @@ abstract class _CustomButton extends StatelessWidget {
   }
 }
 
-class DefaultButton extends _CustomButton {
+class DefaultButton extends CustomButton {
   DefaultButton(
       {@required String value,
       double border,
@@ -95,7 +95,7 @@ class DefaultButton extends _CustomButton {
       ));
 }
 
-class CustomProgressButton extends _CustomButton {
+class CustomProgressButton extends CustomButton {
   CustomProgressButton(
       {this.isLoading = false,
       this.ignorePlatform = false,
