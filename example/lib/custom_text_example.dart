@@ -72,24 +72,24 @@ class _CustomTextExampleState extends State<CustomTextExample> {
             (value.isEmpty)
                 ? empty
                 : TextFormField(
-                    autofocus: false,
-                    maxLines: null,
-                    controller: _controller,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                        hintText: 'Key',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                            borderSide: BorderSide(color: _green)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                            borderSide: BorderSide(color: _green))),
-                    onEditingComplete: () {
-                      setState(() {
-                        this.key = _controller.text;
-                      });
-                    },
-                  )
+              autofocus: false,
+              maxLines: null,
+              controller: _controller,
+              keyboardType: TextInputType.name,
+              decoration: InputDecoration(
+                  hintText: 'Key',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                      borderSide: BorderSide(color: _green)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                      borderSide: BorderSide(color: _green))),
+              onEditingComplete: () {
+                setState(() {
+                  this.key = _controller.text;
+                });
+              },
+            )
           ],
         ),
       ),

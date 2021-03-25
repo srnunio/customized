@@ -31,18 +31,18 @@ class Txt extends StatelessWidget {
 
   Txt(this.value,
       {Key key,
-      this.fontFamily,
-      this.txtCase = TxtCase.None,
-      this.maxLine = 0,
-      this.textSize,
-      this.textColor,
-      this.textAlign,
-      this.rich,
-      this.locale,
-      this.textDecoration = TextDecoration.none,
-      this.textDirection,
-      this.textStyle,
-      this.textOverflow})
+        this.fontFamily,
+        this.txtCase = TxtCase.None,
+        this.maxLine = 0,
+        this.textSize,
+        this.textColor,
+        this.textAlign,
+        this.rich,
+        this.locale,
+        this.textDecoration = TextDecoration.none,
+        this.textDirection,
+        this.textStyle,
+        this.textOverflow})
       : assert(value != null),
         assert(txtCase != null),
         super(key: key);
@@ -121,7 +121,7 @@ class Txt extends StatelessWidget {
     final TextOverflow _textOverflow =
         textOverflow ?? defaultTextStyle.overflow;
 
-    final _locale = locale ?? Localizations.localeOf(context, nullOk: true);
+    final _locale = locale ?? Localizations.maybeLocaleOf(context);
 
     if (textStyle != null) {
       _effectiveTextStyle =

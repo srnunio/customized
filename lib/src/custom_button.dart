@@ -57,30 +57,30 @@ abstract class CustomButton extends StatelessWidget {
 class DefaultButton extends CustomButton {
   DefaultButton(
       {@required String value,
-      double border,
-      double elevation,
-      TextStyle Function(TextStyle style) textStyle,
-      TxtCase txtCase = TxtCase.None,
-      Color activeColor,
-      Color disabledColor,
-      double height = 50.0,
-      String Function(String value) builderText,
-      @required Function onPressed,
-      double textSize,
-      Color textColor})
+        double border,
+        double elevation,
+        TextStyle Function(TextStyle style) textStyle,
+        TxtCase txtCase = TxtCase.None,
+        Color activeColor,
+        Color disabledColor,
+        double height = 50.0,
+        String Function(String value) builderText,
+        @required Function onPressed,
+        double textSize,
+        Color textColor})
       : assert(value != null),
         super(
-            text: value,
-            activeColor: activeColor,
-            disabledColor: disabledColor ?? Colors.grey[200],
-            textStyle: textStyle,
-            elevation: elevation,
-            height: height,
-            txtCase: txtCase,
-            textSize: textSize,
-            textColor: textColor,
-            border: border ?? 8.0,
-            onPressed: onPressed);
+          text: value,
+          activeColor: activeColor,
+          disabledColor: disabledColor ?? Colors.grey[200],
+          textStyle: textStyle,
+          elevation: elevation,
+          height: height,
+          txtCase: txtCase,
+          textSize: textSize,
+          textColor: textColor,
+          border: border ?? 8.0,
+          onPressed: onPressed);
 
   @override
   Widget build(BuildContext context) => body(
@@ -98,33 +98,33 @@ class DefaultButton extends CustomButton {
 class CustomProgressButton extends CustomButton {
   CustomProgressButton(
       {this.isLoading = false,
-      this.ignorePlatform = false,
-      @required String value,
-      double border,
-      double elevation,
-      TextStyle Function(TextStyle style) textStyle,
-      Color activeColor,
-      Color disabledColor,
-      double height = 50.0,
-      TxtCase txtCase = TxtCase.None,
-      String Function(String value) builderText,
-      @required Function onPressed,
-      double textSize,
-      Color textColor})
+        this.ignorePlatform = false,
+        @required String value,
+        double border,
+        double elevation,
+        TextStyle Function(TextStyle style) textStyle,
+        Color activeColor,
+        Color disabledColor,
+        double height = 50.0,
+        TxtCase txtCase = TxtCase.None,
+        String Function(String value) builderText,
+        @required Function onPressed,
+        double textSize,
+        Color textColor})
       : assert(value != null),
         assert(isLoading != null),
         super(
-            text: value,
-            activeColor: activeColor,
-            disabledColor: disabledColor ?? Colors.grey[200],
-            textStyle: textStyle,
-            txtCase: txtCase,
-            textSize: textSize,
-            textColor: textColor,
-            elevation: elevation ?? 0.0,
-            height: height,
-            border: border ?? 8.0,
-            onPressed: (isLoading) ? null : onPressed);
+          text: value,
+          activeColor: activeColor,
+          disabledColor: disabledColor ?? Colors.grey[200],
+          textStyle: textStyle,
+          txtCase: txtCase,
+          textSize: textSize,
+          textColor: textColor,
+          elevation: elevation ?? 0.0,
+          height: height,
+          border: border ?? 8.0,
+          onPressed: (isLoading) ? null : onPressed);
 
   final bool isLoading;
 
