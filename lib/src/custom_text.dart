@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-enum TxtCase { LowerCase, UpperCase, None }
 
 class Rich {
   final TextStyle style;
@@ -19,7 +18,6 @@ class Txt extends StatelessWidget {
   final double textSize;
   final String fontFamily;
   final String value;
-  final TxtCase txtCase;
   final int maxLine;
   final Rich rich;
   final TextAlign textAlign;
@@ -32,7 +30,6 @@ class Txt extends StatelessWidget {
   Txt(this.value,
       {Key key,
         this.fontFamily,
-        this.txtCase = TxtCase.None,
         this.maxLine = 0,
         this.textSize,
         this.textColor,
@@ -44,20 +41,9 @@ class Txt extends StatelessWidget {
         this.textStyle,
         this.textOverflow})
       : assert(value != null),
-        assert(txtCase != null),
         super(key: key);
 
-  _caseText(String text) {
-    if (text == null) return null;
-    switch (txtCase) {
-      case TxtCase.LowerCase:
-        return text.toLowerCase();
-      case TxtCase.UpperCase:
-        return text.toUpperCase();
-      default:
-        return text;
-    }
-  }
+
 
   List<TextSpan> _getSpans({String text, TextStyle style}) {
     List<TextSpan> spans = [];
@@ -98,7 +84,7 @@ class Txt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String _text = _caseText(value);
+    final String _text = value;
 
     final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
 
