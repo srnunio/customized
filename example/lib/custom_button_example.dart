@@ -29,8 +29,14 @@ class _CustomButtonExampleState extends State<CustomButtonExample> {
               height: 16,
             ),
             DefaultButton(
-              value: 'Click',
+              text: 'Click',
               activeColor: Colors.green,
+              builderText: (_){
+                return Txt(
+                  'builderText',
+                  textAlign: TextAlign.center,
+                );
+              },
               textStyle: (_) =>
                   _.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
               onPressed: () {},
