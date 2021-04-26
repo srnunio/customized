@@ -9,9 +9,8 @@ class CustomTextExample extends StatefulWidget {
 }
 
 class _CustomTextExampleState extends State<CustomTextExample> {
-  Color _grey300 = Colors.grey[300];
+
   Color _green = Colors.green;
-  Color _green50 = Colors.green[50];
   String value = '';
   String key = '--';
 
@@ -28,16 +27,20 @@ class _CustomTextExampleState extends State<CustomTextExample> {
             Container(
               child: Txt(
                 value,
-                textSize: 28,
                 textAlign: TextAlign.center,
+                textStyle: (_) => TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    decoration: TextDecoration.underline),
                 rich: Rich(
                     key: key,
                     onRichTap: (value) {
-                      print('onRichTap: ${value}');
+                      print('onRichTap: $value');
                       _show(value);
                     },
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Colors.black,
                         decoration: TextDecoration.underline)),
               ),
             ),
@@ -68,24 +71,24 @@ class _CustomTextExampleState extends State<CustomTextExample> {
             (value.isEmpty)
                 ? empty
                 : TextFormField(
-                    autofocus: false,
-                    maxLines: null,
-                    controller: _controller,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                        hintText: 'Key',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                            borderSide: BorderSide(color: _green)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16.0),
-                            borderSide: BorderSide(color: _green))),
-                    onEditingComplete: () {
-                      setState(() {
-                        this.key = _controller.text;
-                      });
-                    },
-                  )
+              autofocus: false,
+              maxLines: null,
+              controller: _controller,
+              keyboardType: TextInputType.name,
+              decoration: InputDecoration(
+                  hintText: 'Key',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                      borderSide: BorderSide(color: _green)),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                      borderSide: BorderSide(color: _green))),
+              onEditingComplete: () {
+                setState(() {
+                  this.key = _controller.text;
+                });
+              },
+            )
           ],
         ),
       ),

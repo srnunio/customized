@@ -9,9 +9,7 @@ class CustomButtonExample extends StatefulWidget {
 }
 
 class _CustomButtonExampleState extends State<CustomButtonExample> {
-  Color _grey300 = Colors.grey[300];
   Color _green = Colors.green;
-  Color _green50 = Colors.green[50];
   bool isLoading = false;
 
   @override
@@ -24,18 +22,23 @@ class _CustomButtonExampleState extends State<CustomButtonExample> {
           children: [
             Txt(
               'click_message',
-              textSize: 28,
               textAlign: TextAlign.center,
-              builderText: (value) => 'Click here',
             ),
             Txt('DefaultButton'),
             SizedBox(
               height: 16,
             ),
             DefaultButton(
-              value: 'Click',
+              text: 'Click',
               activeColor: Colors.green,
-              textColor: Colors.white,
+              builderText: (_){
+                return Txt(
+                  'builderText',
+                  textAlign: TextAlign.center,
+                );
+              },
+              textStyle: (_) =>
+                  _.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
               onPressed: () {},
             ),
             SizedBox(
@@ -55,6 +58,8 @@ class _CustomButtonExampleState extends State<CustomButtonExample> {
               isLoading: isLoading,
               border: 16.0,
               ignorePlatform: true,
+              textStyle: (_) =>
+                  _.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
               onPressed: () async {
                 setState(() => isLoading = !isLoading);
                 await Future.delayed(Duration(seconds: 2));

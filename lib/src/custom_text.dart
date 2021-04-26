@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-enum TxtCase { LowerCase, UpperCase, None }
 
 class Rich {
   final TextStyle style;
@@ -17,50 +16,34 @@ class Rich {
 class Txt extends StatelessWidget {
   final Color textColor;
   final double textSize;
-  final FontWeight fontWeight;
   final String fontFamily;
   final String value;
-  final TxtCase txtCase;
   final int maxLine;
   final Rich rich;
   final TextAlign textAlign;
   final TextOverflow textOverflow;
-  final TextStyle textStyle;
   final TextDecoration textDecoration;
   final TextDirection textDirection;
   final Locale locale;
-  final String Function(String value) builderText;
+  final TextStyle Function(TextStyle value) textStyle;
 
   Txt(this.value,
-      {this.textColor,
-      Key key,
-      this.builderText,
-      this.textSize,
-      this.fontWeight,
-      this.fontFamily,
-      this.txtCase = TxtCase.None,
-      this.maxLine = 0,
-      this.textAlign,
-      this.rich,
-      this.locale,
-      this.textDecoration = TextDecoration.none,
-      this.textDirection,
-      this.textStyle,
-      this.textOverflow})
+      {Key key,
+        this.fontFamily,
+        this.maxLine = 0,
+        this.textSize,
+        this.textColor,
+        this.textAlign,
+        this.rich,
+        this.locale,
+        this.textDecoration = TextDecoration.none,
+        this.textDirection,
+        this.textStyle,
+        this.textOverflow})
       : assert(value != null),
-        assert(txtCase != null),
         super(key: key);
 
-  _caseText(String text) {
-    switch (txtCase) {
-      case TxtCase.LowerCase:
-        return text.toLowerCase();
-      case TxtCase.UpperCase:
-        return text.toUpperCase();
-      default:
-        return text;
-    }
-  }
+
 
   List<TextSpan> _getSpans({String text, TextStyle style}) {
     List<TextSpan> spans = [];
@@ -101,19 +84,19 @@ class Txt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _text = value;
-
-    if (this.builderText != null) {
-      _text = builderText(value);
-    }
-
-    assert(_text != null);
-
-    _text = _caseText(_text);
+    final String _text = value;
 
     final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
 
-    TextStyle _effectiveTextStyle = textStyle;
+    TextStyle _effectiveTextStyle = (textStyle != null)
+        ? textStyle(defaultTextStyle.style)
+        : defaultTextStyle.style;
+
+    assert(!(textStyle != null && textColor != null));
+    assert(!(textStyle != null && textSize != null));
+    assert(!(textStyle != null && fontFamily != null));
+    assert(!(textStyle != null && textDecoration != TextDecoration.none));
+    assert(_text != null);
 
     final TextAlign _textAlign =
         textAlign ?? defaultTextStyle.textAlign ?? TextAlign.start;
@@ -124,10 +107,11 @@ class Txt extends StatelessWidget {
     final TextOverflow _textOverflow =
         textOverflow ?? defaultTextStyle.overflow;
 
-    final _locale = locale ?? Localizations.localeOf(context, nullOk: true);
+    final _locale = locale ?? Localizations.maybeLocaleOf(context);
 
-    if (textStyle == null || textStyle.inherit) {
-      _effectiveTextStyle = defaultTextStyle.style.merge(textStyle);
+    if (textStyle != null) {
+      _effectiveTextStyle =
+          defaultTextStyle.style.merge(textStyle(defaultTextStyle.style));
     }
 
     if (fontFamily != null) {
