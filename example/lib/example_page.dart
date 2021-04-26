@@ -13,18 +13,17 @@ class _ExamplePageState extends State<ExamplePage> {
   bool _settings = false;
   bool _title = true;
   bool _delete = false;
-  bool _credit_card = false;
+  bool _creditCard = false;
 
 //  CHECKED ITEMS
-  bool _file_download = false;
-  bool _attach_money = true;
-  bool _trending_up = true;
+  bool _fileDownload = false;
+  bool _attachMoney = true;
+  bool _trendingUp = true;
 
 //  COLORS
   Color _grey300 = Colors.grey[300];
   Color _green = Colors.green;
   Color _green50 = Colors.green[50];
-  Color _green100 = Colors.green[100];
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +40,15 @@ class _ExamplePageState extends State<ExamplePage> {
             SizedBox(
               height: 16,
             ),
-            _Title(title: 'Settings', size: 25),
+            _bodyTitle(title: 'Settings', size: 25),
             SizedBox(
               height: 16,
             ),
-            _Title(title: 'PRIMARY SETTINGS'),
+            _bodyTitle(title: 'PRIMARY SETTINGS'),
             SizedBox(
               height: 16,
             ),
-            _ItemSwitch(
+            _itemSwitch(
                 value: _settings,
                 icon: Icons.settings,
                 title: 'Setting option disabled',
@@ -59,7 +58,7 @@ class _ExamplePageState extends State<ExamplePage> {
                     _settings = value;
                   });
                 }),
-            _ItemSwitch(
+            _itemSwitch(
                 value: _title,
                 icon: Icons.title,
                 title: 'Automatically text alignment',
@@ -69,7 +68,7 @@ class _ExamplePageState extends State<ExamplePage> {
                     _title = value;
                   });
                 }),
-            _ItemSwitch(
+            _itemSwitch(
                 value: _delete,
                 icon: Icons.delete,
                 title: 'Automatically delete items',
@@ -79,48 +78,48 @@ class _ExamplePageState extends State<ExamplePage> {
                     _delete = value;
                   });
                 }),
-            _ItemSwitch(
-                value: _credit_card,
+            _itemSwitch(
+                value: _creditCard,
                 icon: Icons.credit_card,
                 title: 'Keep my financial information',
                 description: 'No more privacy on the web',
                 onChanged: (value) {
                   setState(() {
-                    _credit_card = value;
+                    _creditCard = value;
                   });
                 }),
             SizedBox(
               height: 50,
             ),
-            _Title(title: 'CHECKED ITEMS'),
+            _bodyTitle(title: 'CHECKED ITEMS'),
             SizedBox(
               height: 16,
             ),
-            _ItemCheck(
-                value: _file_download,
+            _itemCheck(
+                value: _fileDownload,
                 icon: Icons.file_download,
                 description: 'Available for download',
                 onChanged: (value) {
                   setState(() {
-                    _file_download = value;
+                    _fileDownload = value;
                   });
                 }),
-            _ItemCheck(
-                value: _attach_money,
+            _itemCheck(
+                value: _attachMoney,
                 icon: Icons.attach_money,
                 description: 'For commercial projects',
                 onChanged: (value) {
                   setState(() {
-                    _attach_money = value;
+                    _attachMoney = value;
                   });
                 }),
-            _ItemCheck(
-                value: _trending_up,
+            _itemCheck(
+                value: _trendingUp,
                 icon: Icons.trending_up,
                 description: 'Accelerate design flow',
                 onChanged: (value) {
                   setState(() {
-                    _trending_up = value;
+                    _trendingUp = value;
                   });
                 }),
           ],
@@ -129,14 +128,14 @@ class _ExamplePageState extends State<ExamplePage> {
     );
   }
 
-  _Title({String title, double size = 12}) {
+  _bodyTitle({String title, double size = 12}) {
     return Text(
       title,
       style: TextStyle(fontSize: size, fontWeight: FontWeight.bold),
     );
   }
 
-  _ItemCheck(
+  _itemCheck(
       {IconData icon,
       String description,
       bool value = false,
@@ -153,7 +152,7 @@ class _ExamplePageState extends State<ExamplePage> {
     );
   }
 
-  _ItemSwitch(
+  _itemSwitch(
       {IconData icon,
       String description,
       String title,
@@ -221,7 +220,7 @@ class _ExamplePageState extends State<ExamplePage> {
       value: value,
       activeColor: Colors.green,
       pointColor: Colors.white,
-      onChanged: (value) {},
+      onChanged: onChanged,
     );
   }
 }

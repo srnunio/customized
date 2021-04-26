@@ -9,9 +9,8 @@ class CustomTextExample extends StatefulWidget {
 }
 
 class _CustomTextExampleState extends State<CustomTextExample> {
-  Color _grey300 = Colors.grey[300];
+
   Color _green = Colors.green;
-  Color _green50 = Colors.green[50];
   String value = '';
   String key = '--';
 
@@ -36,7 +35,7 @@ class _CustomTextExampleState extends State<CustomTextExample> {
                 rich: Rich(
                     key: key,
                     onRichTap: (value) {
-                      print('onRichTap: ${value}');
+                      print('onRichTap: $value');
                       _show(value);
                     },
                     style: TextStyle(

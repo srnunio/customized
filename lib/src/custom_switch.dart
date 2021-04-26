@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class CustomSwitch extends StatefulWidget {
   final bool value;
 
-  final ValueChanged<bool> onChanged;
+  final Function(bool) onChanged;
+
+  final Future<bool> Function(bool) onSynChanged;
 
   final Color activeColor;
 
@@ -21,6 +23,7 @@ class CustomSwitch extends StatefulWidget {
     Key key,
     this.value = false,
     this.onChanged,
+    this.onSynChanged,
     this.activeColor = Colors.black,
     this.width = 50,
     this.height = 30,
@@ -30,6 +33,8 @@ class CustomSwitch extends StatefulWidget {
   }) : super(key: key) {
     assert(value != null);
     assert(width != null);
+    assert((onChanged != null && onSynChanged == null) ||
+        (onSynChanged != null && onChanged == null));
     assert(height != null);
     assert(sizePoint != null);
     assert(activeColor != null);
@@ -104,13 +109,22 @@ class _CustomSwitchState extends State<CustomSwitch>
     );
   }
 
-  _onGesture() {
-    if (widget.onChanged == null) return;
-    if (_controller.isCompleted) {
-      _controller.reverse();
+  _onGesture() async {
+    if (widget.onChanged == null && widget.onSynChanged == null) return;
+
+    var response = false;
+
+    if (widget.onChanged != null) {
+      response = !widget.value;
+      widget.onChanged(response);
     } else {
-      _controller.forward();
+      response = await widget.onSynChanged(!widget.value);
     }
-    widget.onChanged(!widget.value);
+
+    if (response) {
+      _controller.forward();
+    } else {
+      _controller.reverse();
+    }
   }
 }
