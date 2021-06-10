@@ -81,7 +81,7 @@ class DefaultButton extends CustomButton {
             textColor: textColor,
             builderText: builderText,
             enableEffectClicked: enableEffectClicked,
-            border: border ?? 8.0,
+            border: border,
             onPressed: onPressed);
 
   @override
@@ -124,9 +124,9 @@ class CustomProgressButton extends CustomButton {
             enableEffectClicked: enableEffectClicked,
             builderText: builderText,
             textColor: textColor,
-            elevation: elevation ?? 0.0,
+            elevation: elevation ,
             height: height,
-            border: border ?? 8.0,
+            border: border ,
             onPressed: (isLoading) ? null : onPressed);
 
   final bool isLoading;
