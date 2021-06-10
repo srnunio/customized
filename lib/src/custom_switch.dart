@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class CustomSwitch extends StatefulWidget {
   final bool value;
 
-  final Function(bool) onChanged;
+  final Function(bool)? onChanged;
 
-  final Future<bool> Function(bool) onSynChanged;
+  final Future<bool> Function(bool)? onSynChanged;
 
   final Color activeColor;
 
@@ -20,7 +20,7 @@ class CustomSwitch extends StatefulWidget {
   final double sizePoint;
 
   CustomSwitch({
-    Key key,
+    Key? key,
     this.value = false,
     this.onChanged,
     this.onSynChanged,
@@ -31,15 +31,8 @@ class CustomSwitch extends StatefulWidget {
     this.pointColor = Colors.white,
     this.switchColor = Colors.grey,
   }) : super(key: key) {
-    assert(value != null);
-    assert(width != null);
     assert((onChanged != null && onSynChanged == null) ||
         (onSynChanged != null && onChanged == null));
-    assert(height != null);
-    assert(sizePoint != null);
-    assert(activeColor != null);
-    assert(pointColor != null);
-    assert(switchColor != null);
     assert(height >= 20 && height <= 30);
     assert(width >= 30 && width <= 50);
   }
@@ -50,8 +43,8 @@ class CustomSwitch extends StatefulWidget {
 
 class _CustomSwitchState extends State<CustomSwitch>
     with TickerProviderStateMixin {
-  Animation _circle;
-  AnimationController _controller;
+  Animation? _circle;
+  AnimationController? _controller;
 
   double get _space => (widget.height < 30) ? 2.0 : 4.0;
 
@@ -63,19 +56,19 @@ class _CustomSwitchState extends State<CustomSwitch>
 
     _circle = AlignmentTween(
             begin: Alignment.centerLeft, end: Alignment.centerRight)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.linear));
+        .animate(CurvedAnimation(parent: _controller!, curve: Curves.linear));
 
     if (widget.value) {
-      _controller.forward();
+      _controller!.forward();
     } else {
-      _controller.reverse();
+      _controller!.reverse();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: _controller,
+      animation: _controller!,
       builder: (context, child) {
         return GestureDetector(
           onTap: () {
@@ -87,14 +80,14 @@ class _CustomSwitchState extends State<CustomSwitch>
             padding: EdgeInsets.only(left: _space, right: _space),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.0),
-                color: _circle.value == Alignment.centerLeft
+                color: _circle!.value == Alignment.centerLeft
                     ? widget.switchColor
                     : widget.activeColor),
             child: Padding(
               padding: const EdgeInsets.only(
                   left: 0.0, top: 4.0, right: 0.0, bottom: 4.0),
               child: Align(
-                alignment: _circle.value,
+                alignment: _circle!.value,
                 child: Container(
                   width: widget.sizePoint,
                   height: widget.sizePoint,
@@ -116,15 +109,15 @@ class _CustomSwitchState extends State<CustomSwitch>
 
     if (widget.onChanged != null) {
       response = !widget.value;
-      widget.onChanged(response);
+      widget.onChanged!(response);
     } else {
-      response = await widget.onSynChanged(!widget.value);
+      response = await widget.onSynChanged!(!widget.value);
     }
 
     if (response) {
-      _controller.forward();
+      _controller!.forward();
     } else {
-      _controller.reverse();
+      _controller!.reverse();
     }
   }
 }
