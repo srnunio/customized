@@ -4,18 +4,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomProgress extends StatelessWidget {
-
-  final Color color;
+  final Color? color;
 
   final double size;
 
   final bool ignorePlatform;
 
-  const CustomProgress({this.color, this.size = 20, this.ignorePlatform = false});
+  const CustomProgress(
+      {this.color, this.size = 20, this.ignorePlatform = false});
 
   @override
   Widget build(BuildContext context) {
-    var _color = color ?? Theme.of(context).accentColor;
+    Color _color = (color != null) ? color! : Theme.of(context).accentColor;
 
     var brightness = Theme.of(context).brightness;
 
