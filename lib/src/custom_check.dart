@@ -74,6 +74,7 @@ class CustomCheck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      highlightColor: Colors.transparent,
       child: Container(
         margin: EdgeInsets.all(8.0),
         decoration: _decoration(),

@@ -47,7 +47,6 @@ class _CustomCheckPageState extends State<CustomCheckPage> {
       .toList();
 
 //  COLORS
-  Color _grey300 = Colors.grey[300];
   Color _green = Colors.green;
   Color _green50 = Colors.green[50];
 
@@ -135,41 +134,41 @@ class _CustomCheckPageState extends State<CustomCheckPage> {
   }
 
   _customCheck({bool value, ValueChanged<bool> onChanged}) {
-    return CustomCheck(
-      value: value,
-      activeColor: Colors.green,
-      type: CheckType.circle,
-      size: 24,
-      builder: (ctx, size) {
-        return Icon(
-          Icons.star,
-          color: Colors.white,
-          size: size,
-        );
-      },
-      onChanged: (value) {
+    // return CustomCheck(
+    //   value: value,
+    //   activeColor: Colors.green,
+    //   type: CheckType.circle,
+    //   size: 24,
+    //   builder: (ctx, size) {
+    //     return Icon(
+    //       Icons.star,
+    //       color: Colors.white,
+    //       size: size,
+    //     );
+    //   },
+    //   onChanged: (value) {
+    //
+    //   },
+    // );
 
-      },
-    );
-
-//    return CustomCheck(
-//      value: value,
-//      activeColor: _green,
-//      type: type,
-//      size: _sizeCheck,
-//      borderRadius: _border,
-//      sizePoint: _sizePoint,
-//      onChanged: onChanged,
-//      builder: (_point != null)
-//          ? (ctx, size) {
-//              return Icon(
-//                _point,
-//                color: Colors.white,
-//                size: size,
-//              );
-//            }
-//          : null,
-//    );
+   return CustomCheck(
+     value: value,
+     activeColor: _green,
+     type: type,
+     size: _sizeCheck,
+     borderRadius: _border,
+     sizePoint: _sizePoint,
+     onChanged: onChanged,
+     builder: (_point != null)
+         ? (ctx, size) {
+             return Icon(
+               _point,
+               color: Colors.white,
+               size: size,
+             );
+           }
+         : null,
+   );
   }
 
   _checkTypeBody() {
