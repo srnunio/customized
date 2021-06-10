@@ -4,25 +4,25 @@ import 'custom_progress.dart';
 import 'custom_text.dart';
 
 abstract class CustomButton extends StatelessWidget {
-  final Function onPressed;
-  final Color activeColor;
-  final Color disabledColor;
+  final VoidCallback? onPressed;
+  final Color? activeColor;
+  final Color? disabledColor;
   final String text;
-  final Widget Function(String) builderText;
+  final Widget Function(String)? builderText;
   final double border;
   final double elevation;
   final double height;
-  final double textSize;
-  final Color textColor;
+  final double? textSize;
+  final Color? textColor;
   final bool enableEffectClicked;
-  final TextStyle Function(TextStyle style) textStyle;
+  final TextStyle Function(TextStyle style)? textStyle;
 
   const CustomButton({
     this.onPressed,
     this.enableEffectClicked = true,
     this.activeColor,
     this.disabledColor,
-    this.text,
+    required this.text,
     this.textStyle,
     this.textColor,
     this.textSize,
@@ -34,7 +34,7 @@ abstract class CustomButton extends StatelessWidget {
         assert(text != null),
         assert(height != null);
 
-  body({@required Widget child, @required BuildContext context}) {
+  body({required Widget child, required BuildContext context}) {
     var _activeColor = activeColor ?? Theme.of(context).accentColor;
 
     return ClipRRect(
@@ -47,7 +47,7 @@ abstract class CustomButton extends StatelessWidget {
         color: _activeColor,
         height: height,
         minWidth: double.infinity / 2,
-        child: (builderText != null) ? builderText(text) : child,
+        child: (builderText != null) ? builderText!(text) : child,
         onPressed: onPressed,
       ),
     );
@@ -56,18 +56,18 @@ abstract class CustomButton extends StatelessWidget {
 
 class DefaultButton extends CustomButton {
   DefaultButton(
-      {@required String text,
-      double border,
-      double elevation,
-      TextStyle Function(TextStyle style) textStyle,
-      Color activeColor,
-      Color disabledColor,
+      {required String text,
+      double border = 8.0,
+      double elevation = 8.0,
+      TextStyle Function(TextStyle style)? textStyle,
+      Color? activeColor,
+      Color? disabledColor,
       bool enableEffectClicked = true,
       double height = 50.0,
-      Widget Function(String value) builderText,
-      @required Function onPressed,
-      double textSize,
-      Color textColor})
+      Widget Function(String value)? builderText,
+      VoidCallback? onPressed,
+      double? textSize,
+      Color? textColor})
       : assert(text != null),
         assert(enableEffectClicked != null),
         super(
@@ -79,7 +79,7 @@ class DefaultButton extends CustomButton {
             height: height,
             textSize: textSize,
             textColor: textColor,
-          builderText: builderText,
+            builderText: builderText,
             enableEffectClicked: enableEffectClicked,
             border: border ?? 8.0,
             onPressed: onPressed);
@@ -100,18 +100,18 @@ class CustomProgressButton extends CustomButton {
   CustomProgressButton(
       {this.isLoading = false,
       this.ignorePlatform = false,
-      @required String value,
-      double border,
-      double elevation,
-      TextStyle Function(TextStyle style) textStyle,
-      Color activeColor,
-      Color disabledColor,
+      required String value,
+      double border = 8.0,
+      double elevation = 8.0,
+      TextStyle Function(TextStyle style)? textStyle,
+      Color? activeColor,
+      Color? disabledColor,
       double height = 50.0,
       bool enableEffectClicked = true,
-      Widget Function(String value) builderText,
-      @required Function onPressed,
-      double textSize,
-      Color textColor})
+      Widget Function(String value)? builderText,
+      VoidCallback? onPressed,
+      double? textSize,
+      Color? textColor})
       : assert(value != null),
         assert(isLoading != null),
         assert(enableEffectClicked != null),
@@ -149,7 +149,7 @@ class CustomProgressButton extends CustomButton {
           context: context,
           child: Center(
             child: CustomProgress(
-              color: activeColor,
+              color: activeColor!,
               ignorePlatform: ignorePlatform,
             ),
           ));
