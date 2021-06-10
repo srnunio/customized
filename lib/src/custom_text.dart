@@ -5,30 +5,27 @@ import 'package:flutter/material.dart';
 class Rich {
   final TextStyle style;
   final String key;
-  final ValueChanged<String> onRichTap;
+  final ValueChanged<String>? onRichTap;
 
-  Rich({this.style, @required this.key, this.onRichTap}) {
-    assert(key != null);
-    assert(style != null);
-  }
+  Rich({required this.style, required this.key, this.onRichTap});
 }
 
 class Txt extends StatelessWidget {
-  final Color textColor;
-  final double textSize;
-  final String fontFamily;
+  final Color? textColor;
+  final double? textSize;
+  final String? fontFamily;
   final String value;
   final int maxLine;
-  final Rich rich;
-  final TextAlign textAlign;
-  final TextOverflow textOverflow;
-  final TextDecoration textDecoration;
-  final TextDirection textDirection;
-  final Locale locale;
-  final TextStyle Function(TextStyle value) textStyle;
+  final Rich? rich;
+  final TextAlign? textAlign;
+  final TextOverflow? textOverflow;
+  final TextDecoration? textDecoration;
+  final TextDirection? textDirection;
+  final Locale? locale;
+  final TextStyle Function(TextStyle value)? textStyle;
 
   Txt(this.value,
-      {Key key,
+      { Key? key,
         this.fontFamily,
         this.maxLine = 0,
         this.textSize,
@@ -40,17 +37,16 @@ class Txt extends StatelessWidget {
         this.textDirection,
         this.textStyle,
         this.textOverflow})
-      : assert(value != null),
-        super(key: key);
+      :super(key: key);
 
 
 
-  List<TextSpan> _getSpans({String text, TextStyle style}) {
+  List<TextSpan> _getSpans({required String text, required TextStyle style}) {
     List<TextSpan> spans = [];
     try {
       int spanBoundary = 0;
       do {
-        final startIndex = text.indexOf(rich.key, spanBoundary);
+        final startIndex = text.indexOf(rich!.key, spanBoundary);
 
         if (startIndex == -1) {
           spans.add(TextSpan(style: style, text: text.substring(spanBoundary)));
@@ -62,13 +58,13 @@ class Txt extends StatelessWidget {
               style: style, text: text.substring(spanBoundary, startIndex)));
         }
 
-        final endIndex = startIndex + rich.key.length;
+        final endIndex = startIndex + rich!.key.length;
 
         final spanText = text.substring(startIndex, endIndex);
 
         spans.add(TextSpan(
             text: spanText,
-            style: rich.style,
+            style: rich!.style,
             recognizer: _onRichTap(spanText)));
 
         spanBoundary = endIndex;
@@ -77,9 +73,9 @@ class Txt extends StatelessWidget {
     return spans;
   }
 
-  TapGestureRecognizer _onRichTap(String value) {
-    if (rich.onRichTap == null) return null;
-    return TapGestureRecognizer()..onTap = () => rich.onRichTap(value);
+  TapGestureRecognizer? _onRichTap(String value) {
+    if (rich!.onRichTap == null) return null;
+    return TapGestureRecognizer()..onTap = () => rich!.onRichTap!(value);
   }
 
   @override
@@ -89,14 +85,14 @@ class Txt extends StatelessWidget {
     final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
 
     TextStyle _effectiveTextStyle = (textStyle != null)
-        ? textStyle(defaultTextStyle.style)
+        ? textStyle!(defaultTextStyle.style)
         : defaultTextStyle.style;
 
     assert(!(textStyle != null && textColor != null));
     assert(!(textStyle != null && textSize != null));
     assert(!(textStyle != null && fontFamily != null));
     assert(!(textStyle != null && textDecoration != TextDecoration.none));
-    assert(_text != null);
+
 
     final TextAlign _textAlign =
         textAlign ?? defaultTextStyle.textAlign ?? TextAlign.start;
@@ -111,7 +107,7 @@ class Txt extends StatelessWidget {
 
     if (textStyle != null) {
       _effectiveTextStyle =
-          defaultTextStyle.style.merge(textStyle(defaultTextStyle.style));
+          defaultTextStyle.style.merge(textStyle!(defaultTextStyle.style));
     }
 
     if (fontFamily != null) {
