@@ -2,7 +2,7 @@ import 'package:customized/customized.dart';
 import 'package:flutter/material.dart';
 
 class ExamplePage extends StatefulWidget {
-  ExamplePage({Key key}) : super(key: key);
+  ExamplePage({Key? key}) : super(key: key);
 
   @override
   _ExamplePageState createState() => _ExamplePageState();
@@ -21,16 +21,16 @@ class _ExamplePageState extends State<ExamplePage> {
   bool _trendingUp = true;
 
 //  COLORS
-  Color _grey300 = Colors.grey[300];
+  Color _grey300 = Colors.grey[300]!;
   Color _green = Colors.green;
-  Color _green50 = Colors.green[50];
+  Color _green50 = Colors.green[50]!;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        brightness: Brightness.light,
+        // brightness: Brightness.light,
         elevation: 0.0,
       ),
       body: Container(
@@ -128,18 +128,18 @@ class _ExamplePageState extends State<ExamplePage> {
     );
   }
 
-  _bodyTitle({String title, double size = 12}) {
+  _bodyTitle({required String title, double size = 12}) {
     return Text(
       title,
       style: TextStyle(fontSize: size, fontWeight: FontWeight.bold),
     );
   }
 
-  _itemCheck(
-      {IconData icon,
-      String description,
+  Widget _itemCheck(
+      {required IconData icon,
+        required String description,
       bool value = false,
-      ValueChanged<bool> onChanged}) {
+        required ValueChanged<bool> onChanged}) {
     return Container(
       child: ListTile(
         leading: Icon(icon),
@@ -152,12 +152,12 @@ class _ExamplePageState extends State<ExamplePage> {
     );
   }
 
-  _itemSwitch(
-      {IconData icon,
-      String description,
-      String title,
+  Widget _itemSwitch(
+      {required IconData icon,
+        required String description,
+        required String title,
       bool value = false,
-      ValueChanged<bool> onChanged}) {
+        required ValueChanged<bool> onChanged}) {
     return Container(
       margin: EdgeInsets.only(top: 8.0),
       padding: EdgeInsets.all(10.0),
@@ -204,7 +204,7 @@ class _ExamplePageState extends State<ExamplePage> {
     );
   }
 
-  _customCheck({bool value, ValueChanged<bool> onChanged}) {
+  Widget _customCheck({required bool value, required ValueChanged<bool> onChanged}) {
     return CustomCheck(
       value: value,
       activeColor: _green,
@@ -215,7 +215,7 @@ class _ExamplePageState extends State<ExamplePage> {
     );
   }
 
-  _customSwitch({bool value, ValueChanged<bool> onChanged}) {
+  Widget _customSwitch({required bool value, required ValueChanged<bool> onChanged}) {
     return CustomSwitch(
       value: value,
       activeColor: Colors.green,

@@ -2,7 +2,7 @@ import 'package:customized/customized.dart';
 import 'package:flutter/material.dart';
 
 class CustomButtonExample extends StatefulWidget {
-  CustomButtonExample({Key key}) : super(key: key);
+  CustomButtonExample({Key? key}) : super(key: key);
 
   @override
   _CustomButtonExampleState createState() => _CustomButtonExampleState();

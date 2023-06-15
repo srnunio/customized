@@ -35,7 +35,7 @@ abstract class CustomButton extends StatelessWidget {
         assert(height != null);
 
   body({required Widget child, required BuildContext context}) {
-    var _activeColor = activeColor ?? Theme.of(context).accentColor;
+    var _activeColor = activeColor ?? Theme.of(context).primaryColor;
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(border),
