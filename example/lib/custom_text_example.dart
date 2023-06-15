@@ -2,7 +2,7 @@ import 'package:customized/customized.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextExample extends StatefulWidget {
-  CustomTextExample({Key key}) : super(key: key);
+  CustomTextExample({Key? key}) : super(key: key);
 
   @override
   _CustomTextExampleState createState() => _CustomTextExampleState();

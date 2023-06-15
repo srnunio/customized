@@ -11,7 +11,7 @@ class CustomSwitch extends StatefulWidget {
 
   final Color switchColor;
 
-  final Color pointColor;
+  final Color thumbColor;
 
   final double width;
 
@@ -28,7 +28,7 @@ class CustomSwitch extends StatefulWidget {
     this.width = 50,
     this.height = 30,
     this.sizePoint = 20,
-    this.pointColor = Colors.white,
+    this.thumbColor = Colors.white,
     this.switchColor = Colors.grey,
   }) : super(key: key) {
     assert((onChanged != null && onSynChanged == null) ||
@@ -67,13 +67,15 @@ class _CustomSwitchState extends State<CustomSwitch>
 
   @override
   Widget build(BuildContext context) {
+    var switchColor = widget.switchColor;
+    var activeColor = widget.activeColor;
+    var thumbColor = widget.thumbColor;
+
     return AnimatedBuilder(
       animation: _controller!,
       builder: (context, child) {
         return GestureDetector(
-          onTap: () {
-            _onGesture();
-          },
+          onTap: _onGesture,
           child: Container(
             width: widget.width,
             height: widget.height,
@@ -81,8 +83,8 @@ class _CustomSwitchState extends State<CustomSwitch>
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.0),
                 color: _circle!.value == Alignment.centerLeft
-                    ? widget.switchColor
-                    : widget.activeColor),
+                    ? switchColor
+                    : activeColor),
             child: Padding(
               padding: const EdgeInsets.only(
                   left: 0.0, top: 4.0, right: 0.0, bottom: 4.0),
@@ -91,8 +93,8 @@ class _CustomSwitchState extends State<CustomSwitch>
                 child: Container(
                   width: widget.sizePoint,
                   height: widget.sizePoint,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: widget.pointColor),
+                  decoration:
+                      BoxDecoration(shape: BoxShape.circle, color: thumbColor),
                 ),
               ),
             ),
@@ -102,7 +104,7 @@ class _CustomSwitchState extends State<CustomSwitch>
     );
   }
 
-  _onGesture() async {
+  void _onGesture() async {
     if (widget.onChanged == null && widget.onSynChanged == null) return;
 
     var response = false;

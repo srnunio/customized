@@ -2,7 +2,7 @@ import 'package:customized/customized.dart';
 import 'package:flutter/material.dart';
 
 class CustomCheckPage extends StatefulWidget {
-  CustomCheckPage({Key key}) : super(key: key);
+  CustomCheckPage({Key? key}) : super(key: key);
 
   @override
   _CustomCheckPageState createState() => _CustomCheckPageState();
@@ -35,20 +35,20 @@ class _CustomCheckPageState extends State<CustomCheckPage> {
   //  POINTS
   static const points = <String>['default', 'star', 'like'];
 
-  IconData _point;
+  IconData? _point;
 
-  String _pointString = 'default';
+  String? _pointString = 'default';
 
   final List<DropdownMenuItem<String>> _points = points
       .map((e) => DropdownMenuItem<String>(
-            value: '${e}',
-            child: Text('${e}'),
+            value: '$e',
+            child: Text('$e'),
           ))
       .toList();
 
 //  COLORS
   Color _green = Colors.green;
-  Color _green50 = Colors.green[50];
+  Color _green50 = Colors.green[50]!;
 
   @override
   Widget build(BuildContext context) {
@@ -109,18 +109,18 @@ class _CustomCheckPageState extends State<CustomCheckPage> {
     );
   }
 
-  _Title({String title, double size = 12}) {
+  Widget _Title({required String title, double size = 12}) {
     return Text(
       title,
       style: TextStyle(fontSize: size, fontWeight: FontWeight.bold),
     );
   }
 
-  _ItemCheck(
-      {IconData icon,
-      String description,
+  Widget _ItemCheck(
+      {IconData? icon,
+      required String description,
       bool value = false,
-      ValueChanged<bool> onChanged}) {
+      required ValueChanged<bool> onChanged}) {
     return Container(
       child: ListTile(
         leading: Icon(icon),
@@ -133,24 +133,7 @@ class _CustomCheckPageState extends State<CustomCheckPage> {
     );
   }
 
-  _customCheck({bool value, ValueChanged<bool> onChanged}) {
-    // return CustomCheck(
-    //   value: value,
-    //   activeColor: Colors.green,
-    //   type: CheckType.circle,
-    //   size: 24,
-    //   builder: (ctx, size) {
-    //     return Icon(
-    //       Icons.star,
-    //       color: Colors.white,
-    //       size: size,
-    //     );
-    //   },
-    //   onChanged: (value) {
-    //
-    //   },
-    // );
-
+  Widget _customCheck({required bool value, required ValueChanged<bool> onChanged}) {
    return CustomCheck(
      value: value,
      activeColor: _green,
@@ -171,7 +154,7 @@ class _CustomCheckPageState extends State<CustomCheckPage> {
    );
   }
 
-  _checkTypeBody() {
+  Widget _checkTypeBody() {
     return ListTile(
       title: _Title(title: 'CHECK TYPE'),
       trailing: DropdownButton(
@@ -191,7 +174,7 @@ class _CustomCheckPageState extends State<CustomCheckPage> {
     );
   }
 
-  _borderBody() {
+  Widget _borderBody() {
     if (type == CheckType.circle) return empty;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -219,7 +202,7 @@ class _CustomCheckPageState extends State<CustomCheckPage> {
     );
   }
 
-  _pointSizeBody() {
+  Widget _pointSizeBody() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -246,7 +229,7 @@ class _CustomCheckPageState extends State<CustomCheckPage> {
     );
   }
 
-  _checkSizeBody() {
+  Widget _checkSizeBody() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,7 +256,7 @@ class _CustomCheckPageState extends State<CustomCheckPage> {
     );
   }
 
-  _checkPoint() {
+  Widget _checkPoint() {
     return ListTile(
       title: _Title(title: 'POINTS'),
       trailing: DropdownButton(

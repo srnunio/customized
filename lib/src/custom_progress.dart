@@ -15,7 +15,7 @@ class CustomProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color _color = (color != null) ? color! : Theme.of(context).accentColor;
+    Color _color = (color != null) ? color! : Theme.of(context).primaryColor;
 
     var brightness = Theme.of(context).brightness;
 
