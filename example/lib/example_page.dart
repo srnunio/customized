@@ -219,7 +219,7 @@ class _ExamplePageState extends State<ExamplePage> {
     return CustomSwitch(
       value: value,
       activeColor: Colors.green,
-      pointColor: Colors.white,
+      thumbColor: Colors.white,
       onChanged: onChanged,
     );
   }
