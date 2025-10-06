@@ -50,6 +50,10 @@ abstract class CustomButton extends StatelessWidget {
       hoverColor: (enableEffectClicked) ? null : Colors.transparent,
       focusColor: (enableEffectClicked) ? null : Colors.transparent,
       elevation: elevation,
+      focusElevation: elevation,
+      hoverElevation: elevation,
+      highlightElevation: elevation,
+      disabledElevation: elevation,
       color: _activeColor,
       height: height,
       minWidth: double.infinity / 2,
@@ -74,9 +78,7 @@ class DefaultButton extends CustomButton {
       VoidCallback? onPressed,
       double? textSize,
       Color? textColor})
-      : assert(text != null),
-        assert(enableEffectClicked != null),
-        super(
+      : super(
             text: text,
             activeColor: activeColor,
             disabledColor: disabledColor ?? Colors.grey[200],
