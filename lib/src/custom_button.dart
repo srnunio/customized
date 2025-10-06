@@ -15,6 +15,7 @@ abstract class CustomButton extends StatelessWidget {
   final double? textSize;
   final Color? textColor;
   final bool enableEffectClicked;
+  final BorderSide borderSide;
   final TextStyle Function(TextStyle style)? textStyle;
 
   const CustomButton({
@@ -28,6 +29,7 @@ abstract class CustomButton extends StatelessWidget {
     this.textSize,
     this.builderText,
     this.border = 8.0,
+    this.borderSide = BorderSide.none,
     this.height = 50.0,
     this.elevation = 8.0,
   })  : assert(disabledColor != null),
@@ -37,19 +39,22 @@ abstract class CustomButton extends StatelessWidget {
   body({required Widget child, required BuildContext context}) {
     var _activeColor = activeColor ?? Theme.of(context).primaryColor;
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(border),
-      child: MaterialButton(
-        splashColor: (enableEffectClicked) ? null : Colors.transparent,
-        highlightColor: (enableEffectClicked) ? null : Colors.transparent,
-        disabledColor: disabledColor,
-        elevation: elevation,
-        color: _activeColor,
-        height: height,
-        minWidth: double.infinity / 2,
-        child: (builderText != null) ? builderText!(text) : child,
-        onPressed: onPressed,
+    return MaterialButton(
+      shape: RoundedRectangleBorder(
+        side: borderSide,
+        borderRadius: BorderRadius.circular(border),
       ),
+      splashColor: (enableEffectClicked) ? null : Colors.transparent,
+      highlightColor: (enableEffectClicked) ? null : Colors.transparent,
+      disabledColor: disabledColor,
+      hoverColor: (enableEffectClicked) ? null : Colors.transparent,
+      focusColor: (enableEffectClicked) ? null : Colors.transparent,
+      elevation: elevation,
+      color: _activeColor,
+      height: height,
+      minWidth: double.infinity / 2,
+      child: (builderText != null) ? builderText!(text) : child,
+      onPressed: onPressed,
     );
   }
 }
@@ -64,6 +69,7 @@ class DefaultButton extends CustomButton {
       Color? disabledColor,
       bool enableEffectClicked = true,
       double height = 50.0,
+      BorderSide borderSide = BorderSide.none,
       Widget Function(String value)? builderText,
       VoidCallback? onPressed,
       double? textSize,
@@ -77,6 +83,7 @@ class DefaultButton extends CustomButton {
             textStyle: textStyle,
             elevation: elevation,
             height: height,
+            borderSide: borderSide,
             textSize: textSize,
             textColor: textColor,
             builderText: builderText,
@@ -107,6 +114,7 @@ class CustomProgressButton extends CustomButton {
       Color? activeColor,
       Color? disabledColor,
       double height = 50.0,
+      BorderSide borderSide = BorderSide.none,
       bool enableEffectClicked = true,
       Widget Function(String value)? builderText,
       VoidCallback? onPressed,
@@ -121,12 +129,13 @@ class CustomProgressButton extends CustomButton {
             disabledColor: disabledColor ?? Colors.grey[200],
             textStyle: textStyle,
             textSize: textSize,
+            borderSide: borderSide,
             enableEffectClicked: enableEffectClicked,
             builderText: builderText,
             textColor: textColor,
-            elevation: elevation ,
+            elevation: elevation,
             height: height,
-            border: border ,
+            border: border,
             onPressed: (isLoading) ? null : onPressed);
 
   final bool isLoading;
